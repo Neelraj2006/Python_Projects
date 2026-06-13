@@ -6,7 +6,7 @@ Each project is organized in its own folder with a dedicated README for details.
 ## Projects
 - **Student Management System** → A Python program to manage student records (add, update, delete, view).
 - **NumPy Student Performance Analyzer** → A data analysis project built using NumPy and Matplotlib to analyze student marks, identify toppers, calculate statistics, generate grades, and visualize performance through charts.
-
+- **Pandas Student Performance Dashboard** → A data analysis project built using Pandas and Matplotlib to analyze student performance, attendance, grades, and academic statistics through filtering, sorting, aggregation, and data visualization techniques.
 ---
 
 ## How to Use
