@@ -1,67 +1,79 @@
 # Library Management System
 
-import numpy as np
-
 books=[]
 
 def add_book():
-    id=(int(input("Enter book ID: ")))
+    book_id=(int(input("Enter book ID: ")))
     title=input("Enter Book title: ")
     author=input("Enter Author's name: ")
     genre=input("Enter genre: ")
-    status=input("Avaliable or not (Yes/No): ")
-    books.append({"id":id,"title":title,"author":author,"genre":genre,"status":status})
-    print("Book added succesfully!!")
+    status="Available"
+    for b in books:
+        if b['id']==book_id:
+            print("Book already exists!")
+            return
+    books.append({"id":book_id,"title":title,"author":author,"genre":genre,"status":status})
+
+    print("Book added successfully")
 
 def view_books():
     if not books:
         print("No record for books found")
     else:
         for b in books:
-            print(f"Title : {b['title']}, ID : {b['id']}, Author : {b['author']}, Status : {b['status']}")
+            print(f"Title : {b['title']}, ID : {b['id']}, Author : {b['author']}, Genre : {b['genre']} ,Status : {b['status']}")
 
 def search_book():
     search_id=int(input("Enter book id: "))
     for b in books:
         if(b['id']==search_id):
-            print(f"Title : {b['title']}, ID : {b['id']}, Author : {b['author']}, Status : {b['status']}")
+            print(f"Title : {b['title']}, ID : {b['id']}, Author : {b['author']}, Genre : {b['genre']} ,Status : {b['status']}")
             return
-    print("Book not found!!")
+    print(f"Book {search_id} not found!!")
 
 def issue_book():
     search_id=int(input("Enter book id: "))
     for b in books:
         if b['id']==search_id:
-            if b['status'].lower()=="yes":
-                b['status']="No"
+            if b['status'].lower()=="available":
+                b['status']="Issued"
                 print("Book issued successfully")
+                return
             else:
                 print("Book already issued")
-    print("Book not found!!")
+                return
+    print(f"Book {search_id} not found!!")
 
 def return_book():
     search_id=int(input("Enter book id: "))
     for b in books:
         if b['id']==search_id:
-            if b['status'].lower()=="no":
-                b['status']="Yes"
+            if b['status'].lower()=="issued":
+                b['status']="Available"
                 print("Book returned successfully")
+                return
             else:
                 print("Book was not issued")
-    print("Book not found!!")
+                return
+    print(f"Book {search_id} not found!!")
 
 def delete_book():
         search_id=int(input("Enter book id: "))
         for b in books:
             if(b['id']==search_id):
-                books.remove(b)
-                print("Book deleted successfully")
-                return
-        print("Book not found!!")
+                Confirmation=input("Do you want to delete the book?")
+                if(Confirmation.lower()=="y"):
+                    books.remove(b)
+                    print("Book deleted successfully")
+                    return
+                else:
+                    print("Book not deleted")
+                    return
+        print(f"Book {search_id} not found!!")
 
 def library_statistics():
     total_books=len(books)
-    books_issued=sum(1 for b in books if b['status'].lower()=="no")
+    books_issued=sum(1 for b in books if b['status'].lower()=="issued")
     available_books=total_books-books_issued
 
     print(f"Total books: {total_books}")
@@ -75,7 +87,8 @@ def sort_books():
 
 def main():
     while True:
-        print("\nLibrary Management System")
+        print("\n---Library Management System---")
+        print("********************")
         print("1. Add Book")
         print("2. View Books")
         print("3. Search Book")
@@ -85,6 +98,7 @@ def main():
         print("7. Library Statistics")
         print("8. Sort Books")
         print("9. Exit")
+        print("********************")
 
         choice=int(input("Enter your choice: "))
         if choice==1:
@@ -104,7 +118,7 @@ def main():
         elif choice==8:
             sort_books()
         elif choice==9:
-            exit()
+            break
         else:
             print("Invalid choice, please try again.")
 
